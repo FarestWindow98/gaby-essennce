@@ -1,5 +1,51 @@
 const URL = "https://gaby-essennce-production.up.railway.app";
 
+// Função para upload de imagem para Cloudinary
+async function uploadImage(file) {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "back_gaby"); // seu preset
+    data.append("cloud_name", "dbedisyll");     // seu cloud name
+
+    try {
+        const res = await fetch("https://api.cloudinary.com/v1_1/dbedisyll/image/upload", {
+            method: "POST",
+            body: data,
+        });
+
+        const result = await res.json();
+
+        if (!res.ok) {
+            throw new Error(result.error?.message || "Erro desconhecido no upload");
+        }
+
+        return result.secure_url; // retorna só a URL segura da imagem
+    } catch (err) {
+        console.error("Erro no upload:", err.message);
+        throw err;
+    }
+}
+
+// Função para preview da imagem selecionada
+function previewImage(file) {
+    const previewContainer = document.getElementById('preview-container');
+    previewContainer.innerHTML = '';
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxWidth = '200px';
+            img.style.maxHeight = '200px';
+            img.style.border = '1px solid #ccc';
+            img.style.borderRadius = '5px';
+            previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Função para mostrar mensagens
     function showMessage(message, type = 'success') {
@@ -136,8 +182,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function preencherFormulario(trabalho) {
         document.getElementById('titulo').value = trabalho.titulo;
         document.getElementById('descricao').value = trabalho.descricao;
-        document.getElementById('link').value = trabalho.link || '';
-        // Imagem não será preenchida por segurança, usuário deve enviar nova se quiser alterar
+        // Para edição, mostrar a imagem atual no preview
+        if (trabalho.image) {
+            const previewContainer = document.getElementById('preview-container');
+            previewContainer.innerHTML = `
+                <p style="color: rgba(255,255,255,0.7); font-size: 14px;">Imagem atual:</p>
+                <img src="${trabalho.image}" alt="Imagem atual" style="max-width: 200px; max-height: 200px; border: 1px solid #ccc; border-radius: 5px;">
+                <p style="color: rgba(255,255,255,0.7); font-size: 12px;">Selecione uma nova imagem para alterar.</p>
+            `;
+        }
 
         // Mudar texto do botão
         const submitBtn = document.querySelector('#trabalhoForm button[type="submit"]');
@@ -171,6 +224,13 @@ document.addEventListener('DOMContentLoaded', function() {
         showMessage('📝 Edição cancelada.');
     }
 
+    // Evento para preview da imagem ao selecionar arquivo
+    const imagemInput = document.getElementById('imagem');
+    imagemInput.addEventListener('change', function() {
+        const file = this.files[0];
+        previewImage(file);
+    });
+
     // Evento submit do formulário
     const form = document.getElementById('trabalhoForm');
     form.addEventListener('submit', async (e) => {
@@ -182,7 +242,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const titulo = document.getElementById('titulo').value;
         const descricao = document.getElementById('descricao').value;
-        const link = document.getElementById('link').value;
+        const file = document.getElementById('imagem').files[0];
+
+        let imageUrl = '';
+        if (file) {
+            // Validações
+            if (!file.type.startsWith('image/')) {
+                showMessage('❌ Por favor, selecione apenas arquivos de imagem.', 'error');
+                hideLoading(submitBtn, originalText);
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage('❌ A imagem deve ter no máximo 5MB.', 'error');
+                hideLoading(submitBtn, originalText);
+                return;
+            }
+
+            showMessage('📤 Fazendo upload da imagem...', 'info');
+            try {
+                imageUrl = await uploadImage(file);
+            } catch (err) {
+                showMessage('❌ Falha ao enviar imagem: ' + err.message, 'error');
+                hideLoading(submitBtn, originalText);
+                return;
+            }
+        } else if (editarId) {
+            // Para edição, se não houver novo arquivo, manter a imagem atual
+            // Buscar a imagem atual
+            try {
+                const response = await fetch(`${URL}/trabalho/${editarId}`);
+                const trabalho = await response.json();
+                imageUrl = trabalho.image;
+            } catch (err) {
+                console.error(err);
+                showMessage('❌ Erro ao obter imagem atual.', 'error');
+                hideLoading(submitBtn, originalText);
+                return;
+            }
+        }
 
         try {
             let response;
@@ -196,8 +293,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify({
                         titulo,
                         descricao,
-                        link,
-                        image: link
+                        link: imageUrl, // Usar a URL da imagem como link
+                        image: imageUrl
                     })
                 });
             } else {
@@ -210,8 +307,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify({
                         titulo,
                         descricao,
-                        link,
-                        image: link
+                        link: imageUrl,
+                        image: imageUrl
                     })
                 });
             }
@@ -222,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showMessage(successMessage);
 
             form.reset();
+            document.getElementById('preview-container').innerHTML = ''; // Limpar preview
             if (editarId) {
                 cancelarEdicao();
             }

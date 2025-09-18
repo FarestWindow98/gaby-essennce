@@ -77,8 +77,9 @@
                     <label for="descricao">Descrição:</label>
                     <textarea id="descricao" name="descricao" required></textarea>
 
-                    <label for="link">Link da Imagem:</label>
-                    <input type="url" id="link" name="link" placeholder="https://exemplo.com/imagem.jpg" required>
+                    <label for="imagem">Imagem:</label>
+                    <input type="file" id="imagem" name="imagem" accept="image/*" required>
+                    <div id="preview-container" style="margin-top: 10px;"></div>
 
                     <button type="submit">Adicionar Trabalho</button>
                 </form>
