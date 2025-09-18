@@ -26,7 +26,7 @@ body {
 
 h2 {
   font-size: 28px;
-  color: #6c63ff;
+  color: linear-gradient(to right, #191741, #142238);
   margin-bottom: 20px;
   font-style: italic;
 }
@@ -34,7 +34,7 @@ h2 {
 hr {
   border: none;
   height: 2px;
-  background: linear-gradient(to right, #6c63ff, #a0c4ff);
+  background: linear-gradient(to right, #191741, #142238);
   margin: 20px auto;
   width: 60%;
 }
@@ -189,22 +189,6 @@ section {
 .user-menu.show {
   display: flex;
   flex-direction: row;
-}
-.user-menu button, #logoutBtn {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  color: #fff;
-  background: linear-gradient(145deg, #ac34db, #6c1a8d);
-  box-shadow: 2px 2px 6px #000;
-  transition: all 0.2s ease;
-}
-.user-menu button:hover, #logoutBtn:hover {
-  background: linear-gradient(145deg, #7a249c, #4a0f61);
-  transform: translateY(-2px);
-  box-shadow: 3px 3px 8px #000;
 }
 
 
