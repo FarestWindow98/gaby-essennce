@@ -202,3 +202,66 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(178, 107, 255, 0.4);
 }
+
+/* Responsividade para Mobile */
+@media (max-width: 768px) {
+  .container-arte {
+    width: 90%; /* Ocupa mais largura em telas menores */
+    padding: 2rem;
+    margin-top: 80px; /* Espaço para o menu superior ou user-box */
+  }
+
+  .container-arte h1 {
+    font-size: 2.2rem;
+  }
+
+  .container-arte p {
+    font-size: 1rem;
+  }
+
+  .btn-principal {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+
+  /* Modal */
+  .modal-content {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .modal-content h2 {
+    font-size: 20px;
+  }
+
+  .modal-content label {
+    font-size: 0.9rem;
+  }
+
+  .modal-content input,
+  .modal-content select,
+  .modal-content textarea {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .btn-submit {
+    padding: 12px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-arte {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .container-arte h1 {
+    font-size: 1.8rem;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+}

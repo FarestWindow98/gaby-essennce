@@ -213,3 +213,82 @@ main.container-sobre {
   background-color: #d1c4e9;
   box-shadow: 0 0 10px #d1c4e9, 0 0 20px #d1c4e9;
 }
+
+/* Responsividade para Mobile */
+@media (max-width: 768px) {
+  main.container-sobre {
+    padding-left: 20px; /* Ajusta o padding para mobile */
+    padding-right: 20px;
+    margin-top: 80px; /* Espaço para o menu superior ou user-box */
+  }
+
+  .secao-apresentacao {
+    flex-direction: column; /* Empilha a foto e o texto */
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .foto-artista {
+    max-width: 80%; /* Aumenta a largura da foto em mobile */
+    margin: 0 auto; /* Centraliza a foto */
+  }
+
+  .texto-apresentacao h1 {
+    font-size: 2.2rem;
+  }
+
+  .texto-apresentacao p {
+    font-size: 1rem;
+  }
+
+  .secao-detalhes {
+    flex-direction: column; /* Empilha as colunas de detalhes */
+    gap: 2rem;
+  }
+
+  .coluna-detalhes h2 {
+    font-size: 1.5rem;
+    text-align: center; /* Centraliza o título da coluna */
+    border-left: none; /* Remove a borda esquerda */
+    padding-left: 0;
+    position: relative;
+  }
+
+  .coluna-detalhes h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background-color: #5e60ce; /* Adiciona um sublinhado */
+  }
+
+  .coluna-detalhes p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main.container-sobre {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .texto-apresentacao h1 {
+    font-size: 1.8rem;
+  }
+
+  .texto-apresentacao p {
+    font-size: 0.9rem;
+  }
+
+  .coluna-detalhes h2 {
+    font-size: 1.3rem;
+  }
+
+  .coluna-detalhes p {
+    font-size: 0.85rem;
+  }
+}

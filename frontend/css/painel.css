@@ -404,3 +404,124 @@ form button:active {
     flex-direction: column; /* Botões um embaixo do outro */
   }
 }
+
+/* Responsividade para Mobile */
+@media (max-width: 768px) {
+  main {
+    margin-left: 0; /* Remove o margin-left para o menu lateral */
+    padding: 20px 15px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  section {
+    padding: 20px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #novo-trabalho-form {
+    padding: 20px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  form {
+    grid-template-columns: 1fr; /* Layout de coluna única para o formulário */
+    gap: 15px;
+  }
+
+  form label {
+    font-size: 0.85rem;
+  }
+
+  form input,
+  form textarea {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  form button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  #trabalhos-lista {
+    grid-template-columns: 1fr; /* Layout de coluna única para a lista de trabalhos */
+    gap: 20px;
+  }
+
+  .trabalho-item {
+    padding: 15px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .trabalho-item h4 {
+    font-size: 1.1rem;
+  }
+
+  .trabalho-item p {
+    font-size: 0.85rem;
+  }
+
+  .trabalho-item img {
+    max-width: 100%; /* Garante que a imagem não transborde */
+    height: auto;
+  }
+
+  .trabalho-item button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  #filtro-status {
+    margin-bottom: 20px;
+  }
+
+  #filtro-status label,
+  #filtro-status select {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  form button {
+    font-size: 13px;
+    padding: 10px 15px;
+  }
+
+  .trabalho-item .actions {
+    flex-direction: column; /* Empilha os botões de ação */
+    gap: 8px;
+  }
+
+  .trabalho-item button {
+    width: 100%;
+  }
+}
