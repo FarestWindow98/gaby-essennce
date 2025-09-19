@@ -314,16 +314,23 @@ body {
   flex-direction: row;
 }
 
-.user-menu button {
-  padding: 5px 10px;
+.user-menu button, #logoutBtn {
+  padding: 8px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  background-color: #eee;
   font-weight: bold;
+  color: #fff;
+  background: linear-gradient(145deg, #ac34db, #6c1a8d);
+  box-shadow: 2px 2px 6px #000;
+  transition: all 0.2s ease;
+  margin-top: 10px;
 }
-
-.user-menu button:hover { background-color: #ccc; }
+.user-menu button:hover, #logoutBtn:hover {
+  background: linear-gradient(145deg, #7a249c, #4a0f61);
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 8px #000;
+}
 
 
 

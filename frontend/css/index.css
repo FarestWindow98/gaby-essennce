@@ -4,6 +4,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   text-align: center;
   overflow-x: hidden; /* Permite rolagem vertical se necessário */
   height: 100vh;
