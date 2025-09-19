@@ -227,6 +227,8 @@ form button:active {
 }
 
 .trabalho-item img {
+  width: 250px;
+  height: 250px;
   object-fit: cover;
   border-radius: 10px;
   border: 2px solid rgba(255, 255, 255, 0.2);
