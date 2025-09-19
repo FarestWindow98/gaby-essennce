@@ -310,6 +310,7 @@ section {
     padding: 20px 10px;
   }
   h2 {
+    margin-top: 50px;
     font-size: 24px;
   }
   .overlay h3 {
@@ -319,12 +320,6 @@ section {
     display: none; /* Oculta a descrição em telas muito pequenas para não poluir */
   }
 }
-
-/* ================================================================
-   MODAIS E USER-BOX (Removidos para evitar duplicidade com global.css)
-   É uma boa prática manter esses estilos globais em um único arquivo.
-   Se precisar de estilos específicos para esta página, adicione-os aqui.
-=================================================================== */
 
 /* Responsividade para Mobile */
 @media (max-width: 768px) {
